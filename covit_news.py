@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import json
 
 # 更新を通知する
 
@@ -67,3 +68,14 @@ def info_get():
             f.write(first_data)
             print(url)
             return True
+
+
+# jsonファイルを読み込む
+def json_read():
+    file = open('info.json', 'r')
+    info = json.load(file)
+    print(info)
+
+
+if __name__ == "__main__":
+    json_read()
