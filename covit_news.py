@@ -1,7 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-
+from linebot import LineBotApi
+from linebot.models import TextSendMessage
 # 更新を通知する
 
 
@@ -28,9 +29,24 @@ def new_bs():
             f.write(new_elem)
         return True
 
+# メッセージを送る
+
+
+def send_message(talk):
+    # メッセージ送信用に変換
+    message = TextSendMessage(text=talk)
+    # jsonファイルを読み込む
+    file = open('info.json', 'r')
+    info = json.load(file)
+    access_token = info["CHANNEL_ACCESS_TOKEN"]
+    user_id = info["USER_ID"]
+    # LINEbotにトークンを入力
+    line_bot_api = LineBotApi(access_token)
+    # LINEbotでメッセージを送る
+    line_bot_api.push_message(user_id, messages=message)
+
+
 # 感染者情報が更新されたら通知
-
-
 def info_get():
     url = "https://www.pref.akita.lg.jp/pages/archive/47957"
     res = requests.get(url)
@@ -57,25 +73,25 @@ def info_get():
     if first_data == old:
         return False
     else:
+        # 送る内容を保存する
+        memory = ""
         for data in datas:
             count_num = data.select("td")[0].get_text()
             day = data.select("td")[1].get_text()
             area = data.select("td")[4].get_text()
             # 症例数が前回取り込んだ数と同じになるまで実行
-            if count_num is not old and old is not "":
-                print(f"{count_num} 判明日：{day}　　場所：{area}")
+            if count_num != old and old != "":
+                memory += f"{count_num} {day}　{area} \n"
+            else:
+                break
+        # 更新された番号を保存
         with open(old_file, "w") as f:
             f.write(first_data)
-            print(url)
-            return True
-
-
-# jsonファイルを読み込む
-def json_read():
-    file = open('info.json', 'r')
-    info = json.load(file)
-    print(info)
+        # 最後にURLを送る内容に保存してメッセージを送信
+        memory += url
+        send_message(memory)
+        # return True
 
 
 if __name__ == "__main__":
-    json_read()
+    info_get()
