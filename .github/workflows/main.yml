@@ -36,8 +36,13 @@ jobs:
         run: |
           python main.py
           
-      - name: Upload file
+      - name: git setting
         run: |
-          git add -all
-          git commit -m "Update File"
-          git git push origin head
+          git config --local user.email "jun_pure@icloud.com"
+          git config --local user.name "Jun-Maeda"
+      - name: Commit files
+        run: |
+          git add .
+          git commit -m "Add Text" -a
+          git pull
+          git push origin head
