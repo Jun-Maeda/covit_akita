@@ -31,7 +31,7 @@ jobs:
           pip install bs4
           pip install requests
           
-        - name: git setting
+      - name: git setting
         run: |
           git config --local user.email "jun_pure@icloud.com"
           git config --local user.name "Jun-Maeda"
