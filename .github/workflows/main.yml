@@ -36,12 +36,12 @@ jobs:
         run: |
           python main.py
           
-      - name: git setting
-        run: |
-          git config --local user.email "jun_pure@icloud.com"
-          git config --local user.name "Jun-Maeda"
-      - name: Commit files
-        run: |
-          git add .
-          git commit -m "Add Text" -a
-          git push origin main
+#       - name: git setting
+#         run: |
+#           git config --local user.email "jun_pure@icloud.com"
+#           git config --local user.name "Jun-Maeda"
+#       - name: Commit files
+#         run: |
+#           git add .
+#           git commit -m "Add Text" -a
+#           git push origin main
