@@ -42,6 +42,7 @@ jobs:
           git config --local user.name "Jun-Maeda"
       - name: Commit files
         run: |
+          git remote add origin "https://github.com/Jun-Maeda/covit_akita.git"
           git add .
           git commit -m "Add Text" -a
           git pull
