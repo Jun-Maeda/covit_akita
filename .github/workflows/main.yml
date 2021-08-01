@@ -33,14 +33,14 @@ jobs:
           
       - name: git setting
         run: |
+          python main.py
           git config --local user.email "jun_pure@icloud.com"
           git config --local user.name "Jun-Maeda"
-          git pull
 
-      # Runs a set of commands using the runners shell
-      - name: Run script
-        run: |
-          python main.py
+#       # Runs a set of commands using the runners shell
+#       - name: Run script
+#         run: |
+#           python main.py
           
       - name: Commit files
         run: |
