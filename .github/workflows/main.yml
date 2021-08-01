@@ -36,7 +36,7 @@ jobs:
         run: |
           python main.py
           
-        - name: Upload file
+      - name: Upload file
         run: |
           git add -all
           git commit -m "Update File"
