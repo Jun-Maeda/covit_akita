@@ -43,7 +43,8 @@ def send_message(talk):
     # LINEbotにトークンを入力
     line_bot_api = LineBotApi(access_token)
     # LINEbotでメッセージを送る
-    line_bot_api.push_message(user_id, messages=message)
+    # line_bot_api.push_message(user_id, messages=message)
+    line_bot_api.broadcast(user_id, messages=message)
 
 
 # 感染者情報が更新されたら通知
