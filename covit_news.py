@@ -44,6 +44,7 @@ def send_message(talk):
     line_bot_api = LineBotApi(access_token)
     # LINEbotでメッセージを送る
     # line_bot_api.push_message(user_id, messages=message)
+    # bot友達の全員に送信
     line_bot_api.broadcast(user_id, messages=message)
 
 
