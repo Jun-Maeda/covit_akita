@@ -45,7 +45,7 @@ def send_message(talk):
     # LINEbotでメッセージを送る
     # line_bot_api.push_message(user_id, messages=message)
     # bot友達の全員に送信
-    line_bot_api.broadcast(user_id, messages=message)
+    line_bot_api.broadcast(messages=message)
 
 
 # 感染者情報が更新されたら通知
