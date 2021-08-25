@@ -77,22 +77,40 @@ def info_get():
     else:
         # 送る内容を保存する
         memory = ""
+        place = {}
         for data in datas:
             count_num = data.select("td")[0].get_text()
-            day = data.select("td")[1].get_text()
+            man_old = data.select("td")[2].get_text()
             area = data.select("td")[4].get_text()
+
+            # 保健所管内の人数を計算
+            if area in place:
+                place[area] += 1
+            else:
+                place[area] = 1
+
             # 症例数が前回取り込んだ数と同じになるまで実行
             if count_num != old and old != "":
-                memory += f"{count_num} {day}　{area} \n"
+                memory += f"{count_num} {man_old}　{area}\n"
             else:
                 break
+
         # 更新された番号を保存
         with open(old_file, "w") as f:
             f.write(first_data)
+
+        # トータルの人数を出力
+        total = ""
+        total_sum = 0
+        for k, v in place.items():
+            total += f"{k}:{v}人\n"
+            total_sum += v
+        total_sum = f"\n秋田県内合計：{str(total_sum)}人\n"
+
         # 最後にURLを送る内容に保存してメッセージを送信
-        memory += url
-        send_message(memory)
-        # return True
+        message = memory + total_sum + total + url
+        send_message(message)
+        # print(message)
 
 
 if __name__ == "__main__":
