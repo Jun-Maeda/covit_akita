@@ -83,15 +83,14 @@ def info_get():
             man_old = data.select("td")[2].get_text()
             area = data.select("td")[4].get_text()
 
-            # 保健所管内の人数を計算
-            if area in place:
-                place[area] += 1
-            else:
-                place[area] = 1
-
             # 症例数が前回取り込んだ数と同じになるまで実行
             if count_num != old and old != "":
                 memory += f"{count_num} {man_old}　{area}\n"
+                # 保健所管内の人数を計算
+                if area in place:
+                    place[area] += 1
+                else:
+                    place[area] = 1
             else:
                 break
 
@@ -109,8 +108,8 @@ def info_get():
 
         # 最後にURLを送る内容に保存してメッセージを送信
         message = memory + total_sum + total + url
-        send_message(message)
-        # print(message)
+        # send_message(message)
+        print(message)
 
 
 if __name__ == "__main__":
