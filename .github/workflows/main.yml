@@ -5,7 +5,7 @@ name: chat_bot
 
 # Controls when the workflow will run
 on:
-#   push:
+  push:
   schedule:
     - cron: '0 * * * *'
 
