@@ -108,8 +108,8 @@ def info_get():
 
         # 最後にURLを送る内容に保存してメッセージを送信
         message = memory + total_sum + total + url
-        send_message(message)
-        
+        # send_message(message)
+        print(message)
 
 
 if __name__ == "__main__":
