@@ -29,9 +29,8 @@ def new_bs():
             f.write(new_elem)
         return True
 
+
 # メッセージを送る
-
-
 def send_message(talk):
     # メッセージ送信用に変換
     message = TextSendMessage(text=talk)
@@ -46,6 +45,23 @@ def send_message(talk):
     # line_bot_api.push_message(user_id, messages=message)
     # bot友達の全員に送信
     line_bot_api.broadcast(messages=message)
+
+
+# 自分にだけメッセージを送る
+def send_me_message(talk):
+    # メッセージ送信用に変換
+    message = TextSendMessage(text=talk)
+    # jsonファイルを読み込む
+    file = open('info.json', 'r')
+    info = json.load(file)
+    access_token = info["CHANNEL_ACCESS_TOKEN"]
+    user_id = info["USER_ID"]
+    # LINEbotにトークンを入力
+    line_bot_api = LineBotApi(access_token)
+    # LINEbotでメッセージを送る
+    line_bot_api.push_message(user_id, messages=message)
+    # bot友達の全員に送信
+    # line_bot_api.broadcast(messages=message)
 
 
 # 感染者情報が更新されたら通知
@@ -113,4 +129,6 @@ def info_get():
 
 
 if __name__ == "__main__":
-    info_get()
+    mess = "おはようございます。\n秋田コロナ感染者情報の作成者のJunです。\n\n昨日は誤った情報をお送りしてしまい申し訳ございませんでした。\n人数計算を追加した際のバグが原因でした。現在は修正を行い、最後にお送りした内容が正しい情報となりますのでご確認ください。\n\nまた、なにか不具合、お問い合わせなどある際には jun.mermaid.voice@gmail.com までご連絡をお願いします。"
+    # send_me_message(mess)
+    # send_message(mess)
