@@ -123,6 +123,7 @@ def info_get():
         total_sum = f"\n秋田県内合計：{str(total_sum)}人\n"
 
         # 最後にURLを送る内容に保存してメッセージを送信
+        top = "先週の秋田県感染者数お知らせ\n"
         message = memory + total_sum + total + url
         send_message(message)
         # print(message)
